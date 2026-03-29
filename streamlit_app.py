@@ -27,6 +27,9 @@ ingredients_list = st.multiselect(
     max_selections=5
 )
 
+# NEW: checkbox for order filled
+order_filled = st.checkbox('Mark order as filled')
+
 if ingredients_list:
     ingredients_string = ''
 
@@ -51,8 +54,8 @@ if ingredients_list:
         except Exception as e:
             st.write("Sorry, that fruit is not available in the API.")
 
-    my_insert_stmt = """ insert into smoothies.public.orders(ingredients, name_on_order)
-                        values ('""" + ingredients_string + """', '""" + name_on_order + """')"""
+    my_insert_stmt = """ insert into smoothies.public.orders(ingredients, name_on_order, order_filled)
+                        values ('""" + ingredients_string + """', '""" + name_on_order + """', """ + str(order_filled).upper() + """)"""
 
     time_to_insert = st.button('Submit Order')
 
